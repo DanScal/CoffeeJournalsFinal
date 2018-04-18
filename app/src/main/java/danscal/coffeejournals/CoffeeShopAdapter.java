@@ -82,10 +82,10 @@ public class CoffeeShopAdapter extends BaseAdapter {
         //get corresponding recipe for each row
         CoffeeShop coffeeShop = (CoffeeShop) getItem(position);
 
-        name.setText(CoffeeShop.name);
+        /*name.setText(CoffeeShop.name);
         vibeRating.setText(CoffeeShop.vibeRating);
         coffeeRating.setText(CoffeeShop.coffeeRating);
-        location.setText(CoffeeShop.location);
+        location.setText(CoffeeShop.location);*/
 
 
         return convertView;

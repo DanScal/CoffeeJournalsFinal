@@ -20,10 +20,10 @@ import java.util.ArrayList;
  */
 
 public class CoffeeShop {
-    public static String name;
-    public static String coffeeRating;
-    public static String vibeRating;
-    public static String location;
+    public String name;
+    public String coffeeRating;
+    public String vibeRating;
+    public String location;
 
     public CoffeeShop () {
 
@@ -34,6 +34,19 @@ public class CoffeeShop {
         this.vibeRating = vibeRating;
         this.location = location;
     }
+    public String getName(){
+        return name;
+    }
+    public String getVibe(){
+        return vibeRating;
+    }
+    public String getCoffee(){
+        return coffeeRating;
+    }
+    public String getLocation(){
+        return location;
+    }
+
 
     /*FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     DatabaseReference mRef = mDatabase.getReference("coffee shops");
