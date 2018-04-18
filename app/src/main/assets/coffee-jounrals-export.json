@@ -1,0 +1,33 @@
+{
+  "coffee shops" : [
+    {
+    "coffee" : "5",
+    "location" : "34.0414,-118.2514",
+    "name" : "No Ghost Bears",
+    "vibe" : "5"
+  },
+    {
+    "coffee" : "4",
+    "location" : "34.0805,-118.2843",
+    "name" : "Cafecito Organico",
+    "vibe" : "4"
+  },
+    {
+    "coffee" : "3",
+    "location" : "32.0809,-118.3874",
+    "name" : "Verve Coffee Roasters",
+    "vibe" : "4"
+  },
+    {
+    "coffee" : "5",
+    "location" : "34.0286,-118.3836",
+    "name" : "Bar Nine",
+    "vibe" : "5"
+  },
+    {
+    "coffee" : "4",
+    "location" : "34.0712,-118.2508",
+    "name" : "Eightfold",
+    "vibe" : "5"
+  } ]
+}

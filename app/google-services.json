@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "548748433329",
+    "firebase_url": "https://coffee-jounrals.firebaseio.com",
+    "project_id": "coffee-jounrals",
+    "storage_bucket": "coffee-jounrals.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:548748433329:android:76b16485976c98e5",
+        "android_client_info": {
+          "package_name": "danscal.coffeejournals"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "548748433329-qkgot76ori0ubmfgumrc8uou8uinbs0f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "danscal.coffeejournals",
+            "certificate_hash": "bdcb67d5514f5cefd20a907fb734759d62d6c9da"
+          }
+        },
+        {
+          "client_id": "548748433329-jhlrncib4lhu9ba88b8utoongamun5t4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvTxmbBz3NZBBmkT5rST582_Wpakj_GmU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "548748433329-jhlrncib4lhu9ba88b8utoongamun5t4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
