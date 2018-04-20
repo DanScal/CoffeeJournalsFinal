@@ -29,20 +29,13 @@ public class CoffeeShipListViewActivity extends AppCompatActivity {
     TextView name;
     TextView vibeRating;
     TextView coffeeRating;
-    TextView location;
-    TextView nameTextView;
-    ArrayList<CoffeeShop> shopList;
-    CoffeeShopAdapter adapter;
+    //TextView location;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coffeeshop_listview);
         mContext = this;
 
-        /*name = findViewById(R.id.coffeeshop_name);
-        vibeRating = findViewById(R.id.vibe_rating);
-        coffeeRating = findViewById(R.id.coffee_rating);
-        location = findViewById(R.id.location);*/
         Query query = FirebaseDatabase.getInstance().getReference().child("coffee shops");
 
         FirebaseListOptions<CoffeeShop> options = new FirebaseListOptions.Builder<CoffeeShop>()
@@ -59,23 +52,19 @@ public class CoffeeShipListViewActivity extends AppCompatActivity {
                 name = view.findViewById(R.id.coffeeshop_name);
                 vibeRating = view.findViewById(R.id.vibe_rating);
                 coffeeRating = view.findViewById(R.id.coffee_rating);
-                location = view.findViewById(R.id.location);
+                //location = view.findViewById(R.id.location);
 
 
                 name.setText(shop.getName());
                 vibeRating.setText(shop.getVibe());
                 coffeeRating.setText(shop.getCoffee());
-                location.setText(shop.getLocation());
+                //location.setText(shop.getLocation());
             }
         };
 
         mListView = (ListView) findViewById(R.id.coffeeListView);
         mListView.setAdapter(mAdapter);
 
-        /*shopList = CoffeeShop.getShopFromFile("coffee-jounrals-export.JSON", this);
-        adapter = new CoffeeShopAdapter(this, shopList);
-        mListView = findViewById(R.id.coffeeListView);
-        mListView.setAdapter(adapter);*/
 
     }
 

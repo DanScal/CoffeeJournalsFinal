@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,37 +10,57 @@
         android:id="@+id/coffeeshop_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="181dp"
+        android:layout_alignTop="@+id/logo_image"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@+id/logo_image"
+        android:textSize="20dp"
+        android:textColor="@color/black"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/coffee_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/coffeeshop_name"
-        android:layout_below="@+id/coffeeshop_name"
-        android:layout_marginTop="21dp"
+        android:layout_alignStart="@+id/coffeeshop_name"
+        android:layout_centerVertical="true"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/vibe_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/coffeeshop_name"
-        android:layout_alignBottom="@+id/coffeeshop_name"
-        android:layout_marginStart="89dp"
-        android:layout_toEndOf="@+id/coffeeshop_name"
+        android:layout_alignBottom="@+id/webiste_button"
+        android:layout_alignStart="@+id/coffee_rating"
         android:text="TextView" />
 
-    <TextView
-        android:id="@+id/location"
+    <ImageView
+        android:id="@+id/logo_image"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <Button
+        android:id="@+id/webiste_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/vibe_rating"
-        android:layout_alignTop="@+id/coffee_rating"
-        android:text="TextView" />
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/coffeeshop_name"
+        android:layout_marginEnd="14dp"
+        android:text="Wesbite" />
+
+    <ImageButton
+        android:id="@+id/favorite_button"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/webiste_button"
+        android:layout_alignTop="@+id/webiste_button"
+        android:layout_toStartOf="@+id/webiste_button"
+        app:srcCompat="@android:drawable/btn_star_big_on" />
 
 </RelativeLayout>

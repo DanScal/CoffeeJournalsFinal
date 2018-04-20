@@ -26,15 +26,19 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
     private static final String TAG = "XYZ";
     GoogleSignInClient mGoogleSignInClient;
     FirebaseAuth mAuth;
+    boolean isLoggedIn = false;
 
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference mRef = mDatabase.getReference("coffee shops");
+    DatabaseReference mRef = mDatabase.getReference().child("users");
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -55,9 +59,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 signIn();
-                Toast.makeText(MainActivity.this, "Log In Successful!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, FragmentMainActivity.class);
-                startActivity(intent);
+                if (isLoggedIn==true) {
+                    Toast.makeText(MainActivity.this, "Log In Successful!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, FragmentMainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -93,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            String userID = user.getUid();
+                            mRef.child(userID).child("favorites").setValue("");
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -107,5 +115,7 @@ public class MainActivity extends AppCompatActivity {
     private void signIn() {
         @SuppressLint("RestrictedApi") Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+        isLoggedIn = true;
+
     }
 }
