@@ -12,4 +12,12 @@
         android:layout_marginStart="123dp"
         android:layout_marginTop="162dp"
         android:text="Button" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/button2"
+        android:layout_centerVertical="true"
+        android:text="Button" />
 </RelativeLayout>
