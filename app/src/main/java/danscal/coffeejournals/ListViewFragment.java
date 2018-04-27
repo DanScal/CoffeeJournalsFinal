@@ -24,9 +24,12 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -38,6 +41,7 @@ public class ListViewFragment extends Fragment {
     ListView mListView;
     FirebaseAuth mAuth;
     DatabaseReference mRef;
+
 
     TextView name;
     TextView vibeRating;
@@ -64,7 +68,6 @@ public class ListViewFragment extends Fragment {
                 .setLifecycleOwner(this)
                 .build();
 
-        //Finally you pass them to the constructor here:
         mAdapter = new FirebaseListAdapter<CoffeeShop>(options) {
             @Override
             protected void populateView(View view, final CoffeeShop shop, int position) {
@@ -102,8 +105,21 @@ public class ListViewFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        String userID = user.getUid();
-                        mRef.child(userID).child("favorites").setValue(shop.getName());
+                        final String userID = user.getUid();
+
+                        /*String lastAdded = mRef.child("favorites").toString();
+                        String lastChar = lastAdded.substring(lastAdded.length() - 1);
+                        int newChild;
+
+                        if (lastChar.equals("s")){
+                            newChild = 1;
+                        }
+                        else {
+                            newChild = Integer.parseInt(lastChar) + 1;
+                        }
+                        System.out.println(lastChar);*/
+
+                        mRef.child(userID).child("favorites").push().setValue(new CoffeeShop(shop.getName(), shop.getCoffee(), shop.getVibe(), shop.getLocation(), shop.getWebsite(), shop.getImageURL()));
 
                     }
                 });

@@ -41,46 +41,38 @@ public class FavoritesFragment extends Fragment{
     //TextView location;
     Button websiteBTN;
     ImageView image;
-
-    ArrayList<String> favoritesList;
-    String favoritesString;
+    ImageButton removeBTN;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_coffeeshop_listview, container, false);
+        View view = inflater.inflate(R.layout.favorites_fragment, container, false);
 
         mAuth = FirebaseAuth.getInstance();
         mRef = FirebaseDatabase.getInstance().getReference().child("users");
         FirebaseUser user = mAuth.getCurrentUser();
         String userID = user.getUid();
-        favoritesString = mRef.child(userID).child("favorites").toString();
-
-        System.out.println("FAVORITES" + favoritesString);
-        favoritesList = new ArrayList<>();
 
 
-
-        Query query = FirebaseDatabase.getInstance().getReference().child("coffee shops");
+        Query query = mRef.child(userID).child("favorites");
 
         FirebaseListOptions<CoffeeShop> options = new FirebaseListOptions.Builder<CoffeeShop>()
                 .setQuery(query, CoffeeShop.class)
-                .setLayout(R.layout.list_item_coffeeshop)
+                .setLayout(R.layout.favorites_list_item_coffeeshop)
                 .setLifecycleOwner(this)
                 .build();
 
-        //Finally you pass them to the constructor here:
         mAdapter = new FirebaseListAdapter<CoffeeShop>(options) {
             @Override
             protected void populateView(View view, final CoffeeShop shop, int position) {
                 //Set the value for the views
-                if(favoritesString.equals(shop.getName())){
-                    name = view.findViewById(R.id.coffeeshop_name);
-                    vibeRating = view.findViewById(R.id.vibe_rating);
-                    coffeeRating = view.findViewById(R.id.coffee_rating);
+                    name = view.findViewById(R.id.coffeeshop_name_favorites);
+                    vibeRating = view.findViewById(R.id.vibe_rating_favorites);
+                    coffeeRating = view.findViewById(R.id.coffee_rating_favorites);
                     //location = view.findViewById(R.id.location);
-                    image = view.findViewById(R.id.logo_image);
-                    websiteBTN = view.findViewById(R.id.webiste_button);
+                    image = view.findViewById(R.id.logo_image_favorites);
+                    websiteBTN = view.findViewById(R.id.website_button_favorites);
+                    removeBTN = view.findViewById(R.id.imageButton_favorites);
 
 
                     name.setText(shop.getName());
@@ -94,13 +86,27 @@ public class FavoritesFragment extends Fragment{
 
                     final String url = shop.getWebsite();
 
+                    websiteBTN.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(url));
+                            startActivity(i);
+                        }
+                    });
+
+                    removeBTN.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //mRef.child()
+                        }
+                    });
+
+
                 }
-
-
-            }
         };
 
-        mListView = (ListView) view.findViewById(R.id.coffeeListView);
+        mListView = (ListView) view.findViewById(R.id.fragment_list_view);
         mListView.setAdapter(mAdapter);
         return view;
     }

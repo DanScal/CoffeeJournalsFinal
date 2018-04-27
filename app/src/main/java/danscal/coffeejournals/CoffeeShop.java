@@ -26,6 +26,11 @@ public class CoffeeShop {
     public CoffeeShop () {
 
     }
+
+    public CoffeeShop (String name){
+        this.name = name;
+    }
+
     public CoffeeShop (String name, String coffeeRating, String vibeRating, String location, String website, String imageURL){
         this.name = name;
         this.coffee = coffeeRating;
@@ -52,5 +57,6 @@ public class CoffeeShop {
     public String getWebsite(){
         return website;
     }
+
 
 }
