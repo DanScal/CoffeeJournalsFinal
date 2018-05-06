@@ -85,7 +85,6 @@ public class FavoritesFragment extends Fragment {
         final FirebaseUser user = mAuth.getCurrentUser();
         String userID = user.getUid();
 
-        pic = view.findViewById(R.id.imageViewTest);
         mContext = getContext();
         mProgressDialog = new ProgressDialog(getContext());
 
@@ -111,7 +110,6 @@ public class FavoritesFragment extends Fragment {
                 image = view.findViewById(R.id.logo_image_favorites);
                 websiteBTN = view.findViewById(R.id.website_button_favorites);
                 removeBTN = view.findViewById(R.id.imageButton_favorites);
-                cameraBTN = view.findViewById(R.id.camera_button);
 
 
                 name.setText(shop.getName());
