@@ -1,6 +1,7 @@
 package danscal.coffeejournals;
 
 import android.*;
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -152,16 +153,18 @@ public class MainActivity extends AppCompatActivity {
         if(ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.CAMERA)
                 + ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.READ_CONTACTS)
                 + ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                + ContextCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
             //show an alert dialogue / popup window with request explinations
             if (ActivityCompat.shouldShowRequestPermissionRationale(mActivity, android.Manifest.permission.CAMERA)
                     || ActivityCompat.shouldShowRequestPermissionRationale(mActivity, android.Manifest.permission.READ_CONTACTS)
                     || ActivityCompat.shouldShowRequestPermissionRationale(mActivity, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    || ActivityCompat.shouldShowRequestPermissionRationale(mActivity, Manifest.permission.ACCESS_FINE_LOCATION)
                     ) {
                 //build an alert dialogue
                 AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                builder.setMessage("Camera, Read Contacts and Write External Storage permissions are required to use this app.");
+                builder.setMessage("Camera, Location, and Write External Storage permissions are required to use this app.");
                 builder.setTitle("Please grant these permissions.");
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
@@ -169,7 +172,8 @@ public class MainActivity extends AppCompatActivity {
                         ActivityCompat.requestPermissions(mActivity, new String[]{
                                 android.Manifest.permission.CAMERA,
                                 android.Manifest.permission.READ_CONTACTS,
-                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
 
                     }
                 });
@@ -182,7 +186,8 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(mActivity, new String[]{
                         android.Manifest.permission.CAMERA,
                         android.Manifest.permission.READ_CONTACTS,
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
             }
         }
         else {
@@ -222,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             String userID = user.getUid();
                             mRef.child(userID).push();
-                            //mStorageRef.child("users").child(userID);
+                            isLoggedIn = true;
 
                         }
                         else {

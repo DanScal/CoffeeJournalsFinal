@@ -1,16 +1,24 @@
 package danscal.coffeejournals;
 
+import android.*;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseListAdapter;
@@ -56,9 +64,12 @@ public class MapViewFragment extends  Fragment /*implements OnMapReadyCallback*/
 
     List<CoffeeShop> shops=new ArrayList<>();
 
-    MapView mapView;
     MapView mMapView;
     private GoogleMap googleMap;
+    private Activity mActivity;
+
+    private final static int REQUEST_CODE = 18; //any number that is greater than or equal to 0
+
 
     ChildEventListener mChildEventListener;
     DatabaseReference mProfileRef = FirebaseDatabase.getInstance().getReference("Profile");
@@ -71,6 +82,8 @@ public class MapViewFragment extends  Fragment /*implements OnMapReadyCallback*/
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
+        mActivity = getActivity();
+
         mMapView.onResume(); // needed to get the map to display immediately
 
         try {
@@ -79,12 +92,24 @@ public class MapViewFragment extends  Fragment /*implements OnMapReadyCallback*/
             e.printStackTrace();
         }
 
+        checkPermissions();
+
+
+
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
+
+
                 mMap=googleMap;
 
+                if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED){
+
+                }
+                mMap.setMyLocationEnabled(true);
                 DatabaseReference myRef;
                 myRef = FirebaseDatabase.getInstance()
                         .getReference().child("coffee shops");
@@ -184,6 +209,52 @@ public class MapViewFragment extends  Fragment /*implements OnMapReadyCallback*/
         if(mChildEventListener != null)
             mProfileRef.removeEventListener(mChildEventListener);
         super.onStop();
+    }
+
+    protected void checkPermissions() {
+        if(ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.CAMERA)
+                + ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.READ_CONTACTS)
+                + ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                + ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            //show an alert dialogue / popup window with request explinations
+            if (ActivityCompat.shouldShowRequestPermissionRationale(mActivity, android.Manifest.permission.CAMERA)
+                    || ActivityCompat.shouldShowRequestPermissionRationale(mActivity, android.Manifest.permission.READ_CONTACTS)
+                    || ActivityCompat.shouldShowRequestPermissionRationale(mActivity, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    || ActivityCompat.shouldShowRequestPermissionRationale(mActivity, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    ) {
+                //build an alert dialogue
+                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                builder.setMessage("Camera, Location, and Write External Storage permissions are required to use this app.");
+                builder.setTitle("Please grant these permissions.");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ActivityCompat.requestPermissions(mActivity, new String[]{
+                                android.Manifest.permission.CAMERA,
+                                android.Manifest.permission.READ_CONTACTS,
+                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", null);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            } else {
+                //directly request for required permissions
+                ActivityCompat.requestPermissions(mActivity, new String[]{
+                        android.Manifest.permission.CAMERA,
+                        android.Manifest.permission.READ_CONTACTS,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+            }
+        }
+        else {
+            Toast.makeText(getContext(), "permissions already granted", Toast.LENGTH_LONG).show();
+        }
     }
 
 

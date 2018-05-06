@@ -13,7 +13,7 @@
         android:layout_alignTop="@+id/logo_image_favorites"
         android:layout_marginStart="16dp"
         android:layout_toEndOf="@+id/logo_image_favorites"
-        android:textSize="22.5dp"
+        android:textSize="20dp"
         android:textColor="@color/black"
         android:text="TextView" />
 
@@ -21,7 +21,7 @@
         android:id="@+id/coffee_rating_favorites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/vibe_rating_favorites"
+        android:layout_alignStart="@+id/coffeeshop_name_favorites"
         android:layout_centerVertical="true"
         android:text="TextView" />
 
@@ -29,8 +29,9 @@
         android:id="@+id/vibe_rating_favorites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/coffeeshop_name_favorites"
-        android:layout_below="@+id/coffee_rating_favorites"
+        android:layout_alignBaseline="@+id/website_button_favorites"
+        android:layout_alignBottom="@+id/website_button_favorites"
+        android:layout_alignStart="@+id/coffee_rating_favorites"
         android:text="TextView" />
 
     <ImageView
@@ -49,8 +50,7 @@
         android:id="@+id/website_button_favorites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/coffee_rating_favorites"
-        android:layout_alignBottom="@+id/coffee_rating_favorites"
+        android:layout_alignBottom="@+id/logo_image_favorites"
         android:layout_alignParentEnd="true"
         android:text="Wesbite" />
 
