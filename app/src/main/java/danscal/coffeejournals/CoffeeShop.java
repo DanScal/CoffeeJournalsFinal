@@ -22,6 +22,7 @@ public class CoffeeShop {
     public String location;
     public String imageURL;
     public String website;
+    public String shopID;
 
     public CoffeeShop () {
 
@@ -31,13 +32,14 @@ public class CoffeeShop {
         this.name = name;
     }
 
-    public CoffeeShop (String name, String coffeeRating, String vibeRating, String location, String website, String imageURL){
+    public CoffeeShop (String name, String coffeeRating, String vibeRating, String location, String website, String imageURL, String shopID){
         this.name = name;
         this.coffee = coffeeRating;
         this.vibe = vibeRating;
         this.location = location;
         this.website = website;
         this.imageURL = imageURL;
+        this.shopID = shopID;
     }
     public String getName(){
         return name;
@@ -56,6 +58,9 @@ public class CoffeeShop {
     }
     public String getWebsite(){
         return website;
+    }
+    public String getShopID(){
+        return shopID;
     }
 
 

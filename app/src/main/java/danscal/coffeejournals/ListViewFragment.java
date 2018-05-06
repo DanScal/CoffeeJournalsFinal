@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseListAdapter;
@@ -107,19 +108,34 @@ public class ListViewFragment extends Fragment {
                         FirebaseUser user = mAuth.getCurrentUser();
                         final String userID = user.getUid();
 
-                        /*String lastAdded = mRef.child("favorites").toString();
-                        String lastChar = lastAdded.substring(lastAdded.length() - 1);
-                        int newChild;
 
-                        if (lastChar.equals("s")){
-                            newChild = 1;
-                        }
-                        else {
-                            newChild = Integer.parseInt(lastChar) + 1;
-                        }
-                        System.out.println(lastChar);*/
+                        //mRef.child(userID).child("favorites").removeValue();
+                        final DatabaseReference mainListener = mRef.child(userID).child("favorites");
 
-                        mRef.child(userID).child("favorites").push().setValue(new CoffeeShop(shop.getName(), shop.getCoffee(), shop.getVibe(), shop.getLocation(), shop.getWebsite(), shop.getImageURL()));
+                        mainListener.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                //System.out.println(dataSnapshot.toString().contains(shop.getName()));
+                                    if((dataSnapshot.toString().contains(shop.getName()) != true)){
+                                        String newRef = mRef.child(userID).child("favorites").push().getKey();
+                                        mRef.child(userID).child("favorites").child(newRef).setValue(new CoffeeShop(shop.getName(), shop.getCoffee(), shop.getVibe(), shop.getLocation(), shop.getWebsite(), shop.getImageURL(), newRef));
+                                        Toast.makeText(getContext(), "Added to Favorites List!",
+                                                Toast.LENGTH_SHORT).show();
+                                        mainListener.removeEventListener(this);
+                                    }
+                                    else {
+                                        Toast.makeText(getContext(), "Already in Favorites List!",
+                                                Toast.LENGTH_SHORT).show();
+                                        mainListener.removeEventListener(this);
+                                    }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+
+                        });
 
                     }
                 });
